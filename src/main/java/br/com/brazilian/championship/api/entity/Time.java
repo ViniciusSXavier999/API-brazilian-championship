@@ -14,6 +14,7 @@ public class Time {
 	private String nome;
 	private String sigla;
 	private String uf;
+	private String estadio;
 	
 	public Time() {
 		
@@ -21,11 +22,12 @@ public class Time {
 	
 	
 
-	public Time(Long id, String nome, String sigla, String uf) {
+	public Time(Long id, String nome, String sigla, String uf, String estadio) {
 		this.id = id;
 		this.nome = nome;
 		this.sigla = sigla;
 		this.uf = uf;
+		this.estadio = estadio;
 	}
 
 
@@ -61,6 +63,20 @@ public class Time {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
+
+
+
+	public String getEstadio() {
+		return estadio;
+	}
+
+
+
+	public void setEstadio(String estadio) {
+		this.estadio = estadio;
+	}
+	
+	
 	
 	
 

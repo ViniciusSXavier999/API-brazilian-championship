@@ -23,6 +23,10 @@ public class TimeService {
 		return repository.findAll();
 	}
 	
+	public Time obterTime(Long id) {
+	return	repository.findById(id).get();
+	}
+	
 	
 	
 }
