@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brazilian.championship.api.dto.TimeDTO;
 import br.com.brazilian.championship.api.entity.Time;
 import br.com.brazilian.championship.api.service.TimeService;
 
@@ -24,19 +25,19 @@ public class TimeController {
 	
 
 	@GetMapping
-	public ResponseEntity<List<Time>> getTimes(Long id) {
+	public ResponseEntity<List<TimeDTO>> getTimes(Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(timeService.listarTimes()); 
 	}
 
 	
 
 	@GetMapping(value = "{id}")
-	public ResponseEntity<Time> getTime( @PathVariable Long id) {
+	public ResponseEntity<TimeDTO> getTime( @PathVariable Long id) {
 		return ResponseEntity.status(HttpStatus.OK).body(timeService.obterTime(id));
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> cadastrarTime( @RequestBody Time time) {
+	public ResponseEntity<Void> cadastrarTime( @RequestBody TimeDTO time) {
 		timeService.cadastrarTime(time);
 		return ResponseEntity.ok().build();
 	}
