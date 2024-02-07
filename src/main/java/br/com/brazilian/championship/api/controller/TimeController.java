@@ -37,9 +37,8 @@ public class TimeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> cadastrarTime( @RequestBody TimeDTO time) {
-		timeService.cadastrarTime(time);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<TimeDTO> cadastrarTime( @RequestBody TimeDTO time) throws Exception {
+		return ResponseEntity.ok().body(timeService.cadastrarTime(time));
 	}
 
 }

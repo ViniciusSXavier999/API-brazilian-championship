@@ -16,14 +16,22 @@ public class TimeService {
 	@Autowired
 	private TimeRepository repository;
 	
-	public void cadastrarTime(TimeDTO time) {
+	public TimeDTO cadastrarTime(TimeDTO time) throws Exception {
 		Time entity = toEntity(time);
-		repository.save(entity);
+		if (time.getId() == null) {
+		entity = repository.save(entity);
+		return toDto(entity);
+		} else {
+			throw new Exception("Time já existe");
+		}
 	}
+	
+		
 
-	// criando o método que converte time para DTO
+	// método que recebe um dto e converte para entity
 	private Time toEntity(TimeDTO time) {
 		Time entity = new Time();
+		entity.setId(time.getId());
 		entity.setEstadio(time.getEstadio());
 		entity.setSigla(time.getSigla());
 		entity.setNome(time.getNome());
@@ -31,8 +39,11 @@ public class TimeService {
 		return entity;
 	}
 	
+	// convertendo entity para dto
 	private TimeDTO toDto(Time entity) {
 		TimeDTO dto = new TimeDTO();
+		// resolvi o problema que o id estava null.
+		dto.setId(entity.getId());
 		dto.setEstadio(entity.getEstadio());
 		dto.setSigla(entity.getSigla());
 		dto.setNome(entity.getNome());

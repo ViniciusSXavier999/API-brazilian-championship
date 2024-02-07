@@ -1,6 +1,9 @@
 package br.com.brazilian.championship.api.dto;
 
+
+
 public class TimeDTO {
+	
 	
 	private Long id;
 	private String nome;
@@ -9,6 +12,22 @@ public class TimeDTO {
 	private String estadio;
 	
 	
+	public TimeDTO() {
+		
+	}
+	
+	
+	public TimeDTO(Long id, String nome, String sigla, String uf, String estadio) {
+		this.id = id;
+		this.nome = nome;
+		this.sigla = sigla;
+		this.uf = uf;
+		this.estadio = estadio;
+	}
+
+
+
+
 	public Long getId() {
 		return id;
 	}
