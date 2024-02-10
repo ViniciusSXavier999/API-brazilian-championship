@@ -1,6 +1,8 @@
 package br.com.brazilian.championship.api.entity;
 
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,7 +20,9 @@ public class Jogo {
 	private Integer golsTime1;
 	private Integer golsTime2;
 	private Integer publicoPagante;
-	
+	private LocalDateTime data;
+	private Integer rodada;
+	private Boolean encerrado;
 	/*Temos dois atributos que é uma chave estrangeira para outra tabela*/
 	
 	// Relação ManytoOne pois eu tenho muitos jogos para um time
@@ -34,18 +38,23 @@ public class Jogo {
 		
 	}
 
-	
 
 
-	public Jogo(Long id, Integer golsTime1, Integer golsTime2, Integer publicoPagante, Time time1, Time time2) {
-		super();
+	public Jogo(Long id, Integer golsTime1, Integer golsTime2, Integer publicoPagante, LocalDateTime data,
+			Integer rodada, Boolean encerrado , Time time1, Time time2) {
 		this.id = id;
 		this.golsTime1 = golsTime1;
 		this.golsTime2 = golsTime2;
 		this.publicoPagante = publicoPagante;
+		this.data = data;
+		this.rodada = rodada;
 		this.time1 = time1;
 		this.time2 = time2;
+		this.encerrado = encerrado;
 	}
+
+
+
 
 
 
@@ -109,6 +118,46 @@ public class Jogo {
 	public void setPublicoPagante(Integer publicoPagante) {
 		this.publicoPagante = publicoPagante;
 	}
+
+
+
+
+	public LocalDateTime getData() {
+		return data;
+	}
+
+
+
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
+	}
+
+
+
+
+	public Integer getRodada() {
+		return rodada;
+	}
+
+
+
+
+	public void setRodada(Integer rodada) {
+		this.rodada = rodada;
+	}
+
+
+	public Boolean getEncerrado() {
+		return encerrado;
+	}
+
+
+	public void setEncerrado(Boolean encerrado) {
+		this.encerrado = encerrado;
+	}
+	
+	
 	
 }
 	
