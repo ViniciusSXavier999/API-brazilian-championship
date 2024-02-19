@@ -40,7 +40,7 @@ public class TimeService {
 	}
 	
 	// convertendo entity para dto
-	private TimeDTO toDto(Time entity) {
+	public TimeDTO toDto(Time entity) {
 		TimeDTO dto = new TimeDTO();
 		// resolvi o problema que o id estava null.
 		dto.setId(entity.getId());

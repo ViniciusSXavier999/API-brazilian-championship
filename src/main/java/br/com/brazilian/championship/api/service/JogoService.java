@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
 import br.com.brazilian.championship.api.entity.Time;
 import br.com.brazilian.championship.api.repository.JogoRepository;
@@ -97,7 +98,21 @@ public class JogoService {
 		jogo.setPublicoPagante(0);
 		return jogo;
 	}
-
+	
+	// convertendo JOGO PARA JOGODTO
+	public JogoDTO entityToDTO(Jogo entity) {
+		JogoDTO dto = new JogoDTO();
+		dto.setId(entity.getId());
+		dto.setData(entity.getData());
+		dto.setEncerrado(entity.getEncerrado());
+		dto.setGolsTime1(entity.getGolsTime1());
+		dto.setGolsTime2(entity.getGolsTime2());
+		dto.setPublicoPagante(entity.getPublicoPagante());
+		dto.setRodada(entity.getRodada());
+		dto.setTime1(timeService.toDto(entity.getTime1()));
+		dto.setTime2(timeService.toDto(entity.getTime2()));
+		return dto;
+	}
 
 	public List<Jogo> obterJogos() {
 		return jogoRepository.findAll();

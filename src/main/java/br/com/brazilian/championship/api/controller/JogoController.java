@@ -6,10 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
 import br.com.brazilian.championship.api.service.JogoService;
 
@@ -27,8 +30,12 @@ public class JogoController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Jogo>> obterJogos(){
+	public ResponseEntity<List<JogoDTO>> obterJogos(){
 		return ResponseEntity.ok().body(jogoService.obterJogos());
 	}
+	
+	
+
+	
 
 }
