@@ -31,7 +31,28 @@ public class JogoController {
 	
 	@GetMapping
 	public ResponseEntity<List<JogoDTO>> obterJogos(){
-		return ResponseEntity.ok().body(jogoService.obterJogos());
+		return ResponseEntity.ok().body(jogoService.listarJogos());
+	}
+	
+	// POST PARA FINALIZAR O JOGO
+	/*Quando eu for finalizar um jogo basicamente eu tenho que passar qual é o id dele e qual é o jogo*/
+	@PostMapping(value = "/finalizar/{id}")
+	public ResponseEntity<JogoDTO> finalizarJogo(@PathVariable Long id,   @RequestBody JogoDTO jogoDTO) throws Exception {
+		return ResponseEntity.ok().body(jogoService.finalizarJogo(id, jogoDTO));
+	}
+	
+	/*
+	// GET PARA OBTER A CLASSIFICAÇÃO DO CAMPEONATO
+	@GetMapping(value = "/classificacao")
+	public ResponseEntity<JogoDTO> classificacao() {
+		return ResponseEntity.ok().body(jogoService.obterClassificacao());
+	}
+	*/
+	
+	// GET PARA BUSCAR UM JOGO ESPECIFICO POR ID 
+	@GetMapping(value = "/jogo/{id}")
+	public ResponseEntity<JogoDTO> obterJogo(@PathVariable Long id) {
+		return ResponseEntity.ok().body(jogoService.obterJogo(id));
 	}
 	
 	

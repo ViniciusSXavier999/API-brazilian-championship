@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,7 +102,7 @@ public class JogoService {
 	}
 	
 	// convertendo JOGO PARA JOGODTO
-	public JogoDTO entityToDTO(Jogo entity) {
+	public JogoDTO toDto(Jogo entity) {
 		JogoDTO dto = new JogoDTO();
 		dto.setId(entity.getId());
 		dto.setData(entity.getData());
@@ -114,8 +116,42 @@ public class JogoService {
 		return dto;
 	}
 
-	public List<Jogo> obterJogos() {
-		return jogoRepository.findAll();
+	public List<JogoDTO> listarJogos() {
+		return jogoRepository.findAll().stream().
+				map(entity -> toDto(entity)).collect(Collectors.toList());
+	}
+
+// ------------------------------
+
+	public JogoDTO finalizarJogo(Long id, JogoDTO jogoDTO) throws Exception {
+		Optional<Jogo> optionalJogo = jogoRepository.findById(id);
+		
+		if (optionalJogo.isPresent()) {
+			final Jogo jogo = optionalJogo.get();
+			jogo.setGolsTime1(jogoDTO.getGolsTime1());
+			jogo.setGolsTime2(jogoDTO.getGolsTime2());
+			jogo.setEncerrado(true);
+			jogo.setPublicoPagante(jogoDTO.getPublicoPagante());
+			return toDto(jogoRepository.save(jogo));
+		} else {
+			throw new Exception("Jogo não existe!");
+		}
+		
+	}
+
+// ------------------------------
+
+/*
+	public Object obterClassificacao() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+*/
+
+// -----------------------------
+
+	public JogoDTO obterJogo(Long id) {
+		return toDto(jogoRepository.findById(id).get());
 	}
 
 }
