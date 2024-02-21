@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brazilian.championship.api.dto.FinalizarJogoDTO;
 import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
 import br.com.brazilian.championship.api.service.JogoService;
@@ -37,7 +38,7 @@ public class JogoController {
 	// POST PARA FINALIZAR O JOGO
 	/*Quando eu for finalizar um jogo basicamente eu tenho que passar qual é o id dele e qual é o jogo*/
 	@PostMapping(value = "/finalizar/{id}")
-	public ResponseEntity<JogoDTO> finalizarJogo(@PathVariable Long id,   @RequestBody JogoDTO jogoDTO) throws Exception {
+	public ResponseEntity<JogoDTO> finalizarJogo(@PathVariable Long id,   @RequestBody FinalizarJogoDTO jogoDTO) throws Exception {
 		return ResponseEntity.ok().body(jogoService.finalizarJogo(id, jogoDTO));
 	}
 	

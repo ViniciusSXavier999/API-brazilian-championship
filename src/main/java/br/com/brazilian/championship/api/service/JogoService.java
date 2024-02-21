@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.brazilian.championship.api.dto.FinalizarJogoDTO;
 import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
 import br.com.brazilian.championship.api.entity.Time;
@@ -122,16 +123,18 @@ public class JogoService {
 	}
 
 // ------------------------------
+	
+	/*Eu vou receber um jogo finalizado mas vou retornar um jogoDTO, VOU RETORNAR TODO MEU OBJETO COM TODAS INFORMAÇÕES DELE*/
 
-	public JogoDTO finalizarJogo(Long id, JogoDTO jogoDTO) throws Exception {
+	public JogoDTO finalizarJogo(Long id, FinalizarJogoDTO finalizarJogo) throws Exception {
 		Optional<Jogo> optionalJogo = jogoRepository.findById(id);
 		
 		if (optionalJogo.isPresent()) {
 			final Jogo jogo = optionalJogo.get();
-			jogo.setGolsTime1(jogoDTO.getGolsTime1());
-			jogo.setGolsTime2(jogoDTO.getGolsTime2());
+			jogo.setGolsTime1(finalizarJogo.getGolsTime1());
+			jogo.setGolsTime2(finalizarJogo.getGolsTime2());
 			jogo.setEncerrado(true);
-			jogo.setPublicoPagante(jogoDTO.getPublicoPagante());
+			jogo.setPublicoPagante(finalizarJogo.getPublicoPagante());
 			return toDto(jogoRepository.save(jogo));
 		} else {
 			throw new Exception("Jogo não existe!");
