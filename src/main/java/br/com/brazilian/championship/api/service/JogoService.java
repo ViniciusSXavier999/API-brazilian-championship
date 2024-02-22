@@ -5,11 +5,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.brazilian.championship.api.dto.ClassificacaoDTO;
 import br.com.brazilian.championship.api.dto.FinalizarJogoDTO;
 import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
@@ -144,12 +147,52 @@ public class JogoService {
 
 // ------------------------------
 
-/*
-	public Object obterClassificacao() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public ClassificacaoDTO obterClassificacao() {
+		// para  obter a classificação eu pego a quantidade de vitorias do meu time * 3 + quantidades de empate
+		ClassificacaoDTO classificacaoDTO = new ClassificacaoDTO();
+		 
+		// classificação é baseada em times, por isso eu preciso ter todos os times na lista
+		final List<Time> times = timeService.findAll();
+		
+		times.forEach(time -> {
+			final List<Jogo> jogosMandante = jogoRepository.findByTime1AndEncerrado(time, true);
+			final List<Jogo> jogosVisitante = jogoRepository.findByTime2AndEncerrado(time, true);
+			AtomicReference<Integer> vitorias = new AtomicReference<>(0);
+			AtomicReference<Integer> empates = new AtomicReference<>(0);
+			AtomicReference<Integer> derrotas = new AtomicReference<>(0);
+			AtomicReference<Integer> golsSofridos = new AtomicReference<>(0);
+			AtomicReference<Integer> golsMarcados = new AtomicReference<>(0);
+			
+			
+			jogosMandante.forEach(jogo -> {
+				if (jogo.getGolsTime1() > jogo.getGolsTime2()) {
+					vitorias.getAndSet(vitorias.get() +1);
+				} else if (jogo.getGolsTime1() < jogo.getGolsTime2()) {
+					derrotas.getAndSet(derrotas.get() +1);
+				} else {
+					empates.getAndSet(empates.get() +1);
+				}
+				golsMarcados.set(golsMarcados.get() + jogo.getGolsTime1());
+				golsSofridos.set(golsSofridos.get() + jogo.getGolsTime2());
+			});
+			
+			jogosVisitante.forEach(jogo -> {
+				if (jogo.getGolsTime2() > jogo.getGolsTime2()) {
+					vitorias.getAndSet(vitorias.get() +1);
+				} else if (jogo.getGolsTime2() < jogo.getGolsTime1()) {
+					derrotas.getAndSet(derrotas.get() +1);
+				} else {
+					empates.getAndSet(empates.get() +1);
+				}
+				golsMarcados.set(golsMarcados.get() + jogo.getGolsTime2());
+				golsSofridos.set(golsSofridos.get() + jogo.getGolsTime1());
+			});
+		});
+		
+		return classificacaoDTO;
 	}
-*/
+
 
 // -----------------------------
 
