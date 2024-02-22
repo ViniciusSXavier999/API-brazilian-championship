@@ -3,6 +3,7 @@ package br.com.brazilian.championship.api.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -207,6 +208,12 @@ public class JogoService {
 			classificacaoDTO.getTimes().add(classificacaoTimeDTO);
 			
 		});
+		
+		Collections.sort(classificacaoDTO.getTimes(), Collections.reverseOrder());
+		int posicao = 1;
+		for (ClassificacaoTimeDTO time : classificacaoDTO.getTimes()) {
+			time.setPosicao((posicao++));
+		}
 		
 		return classificacaoDTO;
 	}

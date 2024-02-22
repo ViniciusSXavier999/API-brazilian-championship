@@ -1,6 +1,6 @@
 package br.com.brazilian.championship.api.dto;
 
-public class ClassificacaoTimeDTO {
+public class ClassificacaoTimeDTO implements Comparable<ClassificacaoTimeDTO> {
 	
 	private String time;
 	private Long idTime;
@@ -110,6 +110,12 @@ public class ClassificacaoTimeDTO {
 
 	public void setGolsSofridos(Integer golsSofridos) {
 		this.golsSofridos = golsSofridos;
+	}
+
+	@Override
+	public int compareTo(ClassificacaoTimeDTO o) {
+		// TODO Auto-generated method stub
+		return this.getPontos().compareTo(o.getPontos());
 	}
 	
 	
