@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.brazilian.championship.api.dto.ClassificacaoDTO;
+import br.com.brazilian.championship.api.dto.ClassificacaoTimeDTO;
 import br.com.brazilian.championship.api.dto.FinalizarJogoDTO;
 import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
@@ -188,6 +189,23 @@ public class JogoService {
 				golsMarcados.set(golsMarcados.get() + jogo.getGolsTime2());
 				golsSofridos.set(golsSofridos.get() + jogo.getGolsTime1());
 			});
+			
+			
+			ClassificacaoTimeDTO classificacaoTimeDTO = new ClassificacaoTimeDTO();
+			// utilizamos o get porque é um atomic
+			classificacaoTimeDTO.setIdTime(time.getId());
+			classificacaoTimeDTO.setTime(time.getNome());
+			classificacaoTimeDTO.setPontos((vitorias.get() * 3) + empates.get());
+			classificacaoTimeDTO.setDerrotas(derrotas.get());
+			classificacaoTimeDTO.setEmpates(empates.get());
+			classificacaoTimeDTO.setVitorias(vitorias.get());
+			classificacaoTimeDTO.setGolsMarcados(golsMarcados.get());
+			classificacaoTimeDTO.setGolsSofridos(golsSofridos.get());
+			classificacaoTimeDTO.setJogos(derrotas.get() + empates.get() + vitorias.get());
+			
+			// no final adiciono tudo 
+			classificacaoDTO.getTimes().add(classificacaoTimeDTO);
+			
 		});
 		
 		return classificacaoDTO;

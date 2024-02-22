@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brazilian.championship.api.dto.ClassificacaoDTO;
 import br.com.brazilian.championship.api.dto.FinalizarJogoDTO;
 import br.com.brazilian.championship.api.dto.JogoDTO;
 import br.com.brazilian.championship.api.entity.Jogo;
@@ -42,13 +43,13 @@ public class JogoController {
 		return ResponseEntity.ok().body(jogoService.finalizarJogo(id, jogoDTO));
 	}
 	
-	/*
+	
 	// GET PARA OBTER A CLASSIFICAÇÃO DO CAMPEONATO
 	@GetMapping(value = "/classificacao")
-	public ResponseEntity<JogoDTO> classificacao() {
+	public ResponseEntity<ClassificacaoDTO> classificacao() {
 		return ResponseEntity.ok().body(jogoService.obterClassificacao());
 	}
-	*/
+	
 	
 	// GET PARA BUSCAR UM JOGO ESPECIFICO POR ID 
 	@GetMapping(value = "/jogo/{id}")
